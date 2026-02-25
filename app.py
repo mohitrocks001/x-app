@@ -164,4 +164,4 @@ def authenticate():
     else:
         print("Empty credentials - not saving")
 
-    return "Authentication successful"
+    return "Error"
